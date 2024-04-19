@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const BlogPost = require("./models/BlogPost");//We import the BlogPost model by specifying its relative path
-mongoose.connect("mongodb://localhost/my_database", {useNewUrlParser: true});// connecting to the database
+mongoose.connect("mongodb://127.0.0.1/my_database", {useNewUrlParser: true});// connecting to the database
 
 BlogPost.create({
     title: "The Mythbuster's Guide to Saving Money on Energy Bills",
@@ -11,7 +11,7 @@ BlogPost.create({
 })
 
 //To select all documents in BlogPosts collection: pass an empty document as query filter parameter to the first argument of the find method
-BlogPost.find({}, (error, blogpost) => {
+/*BlogPost.find({}, (error, blogpost) => {
     console.log(error, blogpost)
 })
 
