@@ -1,17 +1,20 @@
 {
-  "name": "tutorial_3",
+  "name": "chapter5",
   "version": "1.0.0",
-  "description": "My web app",
-  "main": "main.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "nodemon main.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
-  "author": "Nyakallo",
+  "author": "TJ",
   "license": "ISC",
   "dependencies": {
-    "ejs": "^3.1.10",
-    "express": "^4.19.2",
-    "mongoose": "^8.3.2",
-    "nodemon": "^3.1.0"
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mongoose": "^7.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
