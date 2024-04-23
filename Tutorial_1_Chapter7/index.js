@@ -10,6 +10,7 @@ const fileUpload = require("express-fileupload");
 
 
 
+
 app.use(express.static('public'));
 app.use(express.json()); 
 app.use(express.urlencoded());
@@ -59,7 +60,7 @@ app.get("/posts/new", (req, res) => {
     //})
 
 app.post("/posts/store", (req,res) => {
-    let image = req.file.image;
+    let image = req.files.image;
     image.mv(path.resolve(__dirname, "public/img", image.name), 
     async(error) => {
     await BlogPost.create({
