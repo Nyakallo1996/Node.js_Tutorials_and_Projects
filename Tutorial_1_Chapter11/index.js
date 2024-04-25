@@ -18,6 +18,7 @@ const loginUserController = require("./controllers/loginUser");
 const expressSession = require("express-session");
 const authMiddleware = require("./middleware/authMiddleware");
 const redirectIfAuthenticationMiddleware = require("./middleware/redirectIfAuthenticatedMiddleware");
+const logoutController = require("./controllers/logout")
  
 const Schema = mongoose.Schema;
 app.use(fileUpload());
@@ -29,6 +30,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressSession({
     secret: "keyboard cat"
 }))
+
+global.loggedIn = null;
+
+app.use("*", (req, res, next) => {
+    loggedIn = req.session.userId;
+    next()
+});
 
 app.set('view engine', 'ejs');
 
@@ -85,3 +93,9 @@ app.get("/posts/new",authMiddleware, newPostController);
 app.post("/posts/store",authMiddleware, storePostController);
 
 
+
+
+
+app.get("/auth/logout", logoutController);
+
+app.use((req, res) => res.render("notfound"));
