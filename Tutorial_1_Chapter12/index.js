@@ -51,13 +51,13 @@ const customMiddleWare = (req, res, next) => {
     next()
 }
 
-app.get("/auth/register",redirectIfAuthenticationMiddleware, newUserController);
+app.get("/auth/register", redirectIfAuthenticationMiddleware, newUserController);
 
-app.post("/users/register",redirectIfAuthenticationMiddleware, storeUserController);
+app.post("/users/register", redirectIfAuthenticationMiddleware, storeUserController);
 
-app.get("/auth/login",redirectIfAuthenticationMiddleware, loginController);
+app.get("/auth/login", redirectIfAuthenticationMiddleware, loginController);
 
-app.post("/users/login",redirectIfAuthenticationMiddleware, loginUserController)
+app.post("/users/login", redirectIfAuthenticationMiddleware, loginUserController)
 
 
 
