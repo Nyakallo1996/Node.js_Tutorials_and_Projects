@@ -15,6 +15,9 @@ const newUserController = require("./controllers/newUser")
 const storeUserController = require("./controllers/storeUser");
 const loginController = require("./controllers/login");
 const loginUserController = require("./controllers/loginUser");
+const expressSession = require("express-session");
+const authMiddleware = require("./middleware/authMiddleware");
+const redirectIfAuthenticationMiddleware = require("./middleware/redirectIfAuthenticatedMiddleware");
  
 const Schema = mongoose.Schema;
 app.use(fileUpload());
@@ -22,6 +25,10 @@ app.use(fileUpload());
 mongoose.connect('mongodb://127.0.0.1/my_database', {useNewUrlParser: true});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(expressSession({
+    secret: "keyboard cat"
+}))
 
 app.set('view engine', 'ejs');
 
@@ -36,13 +43,13 @@ const customMiddleWare = (req, res, next) => {
     next()
 }
 
-app.get("/auth/register", newUserController);
+app.get("/auth/register",redirectIfAuthenticationMiddleware, newUserController);
 
-app.post("/users/register", storeUserController);
+app.post("/users/register",redirectIfAuthenticationMiddleware, storeUserController);
 
-app.get("/auth/login", loginController);
+app.get("/auth/login",redirectIfAuthenticationMiddleware, loginController);
 
-app.post("/users/login", loginUserController)
+app.post("/users/login",redirectIfAuthenticationMiddleware, loginUserController)
 
 
 
@@ -71,10 +78,10 @@ app.get("/post/:id", getPostController);
 
 
 
-app.get("/posts/new", newPostController);
+app.get("/posts/new",authMiddleware, newPostController);
 
 
 
-app.post("/posts/store", storePostController);
+app.post("/posts/store",authMiddleware, storePostController);
 
 
