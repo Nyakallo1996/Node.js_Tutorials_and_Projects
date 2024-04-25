@@ -18,7 +18,8 @@ const loginUserController = require("./controllers/loginUser");
 const expressSession = require("express-session");
 const authMiddleware = require("./middleware/authMiddleware");
 const redirectIfAuthenticationMiddleware = require("./middleware/redirectIfAuthenticatedMiddleware");
-const logoutController = require("./controllers/logout")
+const logoutController = require("./controllers/logout");
+const flash = require("connect-flash");
  
 const Schema = mongoose.Schema;
 app.use(fileUpload());
@@ -37,6 +38,8 @@ app.use("*", (req, res, next) => {
     loggedIn = req.session.userId;
     next()
 });
+
+app.use(flash());
 
 app.set('view engine', 'ejs');
 
@@ -99,3 +102,5 @@ app.post("/posts/store",authMiddleware, storePostController);
 app.get("/auth/logout", logoutController);
 
 app.use((req, res) => res.render("notfound"));
+
+
