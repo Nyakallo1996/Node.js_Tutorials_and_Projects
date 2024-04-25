@@ -11,6 +11,10 @@ const storePostController = require("./controllers/storePost");
 const getPostController = require("./controllers/getPost");
 const validateMiddleWare = require("./middleware/validationMiddleware");
 const BlogPost = require('./models/BlogPost.js');
+const newUserController = require("./controllers/newUser")
+const storeUserController = require("./controllers/storeUser");
+const loginController = require("./controllers/login");
+const loginUserController = require("./controllers/loginUser");
  
 const Schema = mongoose.Schema;
 app.use(fileUpload());
@@ -31,6 +35,14 @@ const customMiddleWare = (req, res, next) => {
     console.log("Custom middle ware called")
     next()
 }
+
+app.get("/auth/register", newUserController);
+
+app.post("/users/register", storeUserController);
+
+app.get("/auth/login", loginController);
+
+app.post("/users/login", loginUserController)
 
 
 
